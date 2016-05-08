@@ -30,11 +30,22 @@ sudo aptitude install -y vim mc rar unrar pv htop meld qtcreator git gitg tmux \
     gparted gnome-do filezilla xfonts-terminus guake tilda openssh-server \
     xubuntu-restricted-extras google-chrome-stable wireshark iftop kdiff3 \
     krusader libssl-dev libncurses5-dev unzip gawk subversion youtube-dl \
-    linux-headers arduino
+    linux-headers arduino exfat-fuse exfat-utils
 
 printf "${GREEN}Removing crap...${NC}\n"
 sudo aptitude purge -y ristretto gnome-mines gnome-sudoku xfburn simple-scan \
     parole
+
+printf "${GREEN}Configuring VIM...${NC}\n"
+sudo su -c "echo -e \"
+set number
+set tabstop=4
+set statusline+=%F
+set laststatus=2
+\" >> /etc/vim/vimrc"
+
+printf "${GREEN}Adding current user to dialout group...${NC}\n"
+sudo adduser `whoami` dialout
 
 printf "${GREEN}Performing full upgrade...${NC}\n"
 sudo aptitude full-upgrade -y
