@@ -30,7 +30,8 @@ sudo aptitude install -y vim mc rar unrar pv htop meld qtcreator git gitg tmux \
     gparted gnome-do filezilla xfonts-terminus guake tilda openssh-server \
     xubuntu-restricted-extras google-chrome-stable wireshark iftop kdiff3 \
     krusader libssl-dev libncurses5-dev unzip gawk subversion youtube-dl \
-    linux-headers arduino exfat-fuse exfat-utils
+    linux-headers arduino exfat-fuse exfat-utils cmake cmake-qt-gui qbs \
+    qt5-default
 
 printf "${GREEN}Removing crap...${NC}\n"
 sudo aptitude purge -y ristretto gnome-mines gnome-sudoku xfburn simple-scan \
