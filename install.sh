@@ -24,14 +24,18 @@ printf "${GREEN}Getting aptitude...${NC}\n"
 sudo apt-get install -y aptitude
 
 printf "${GREEN}Installing everyting...${NC}\n"
-sudo aptitude install -y vim mc rar unrar pv htop meld qtcreator git gitg tmux \
-    mercurial tortoisehg vlc audacious gdebi synaptic ipython ipython3 minicom \
-    ipython-qtconsole ipython3-qtconsole python-pip python3-pip gpicview \
-    gparted gnome-do filezilla xfonts-terminus guake tilda openssh-server \
-    xubuntu-restricted-extras google-chrome-stable wireshark iftop kdiff3 \
-    krusader libssl-dev libncurses5-dev unzip gawk subversion youtube-dl \
-    linux-headers arduino exfat-fuse exfat-utils cmake cmake-qt-gui qbs \
-    qt5-default p7zip-full
+sudo aptitude install -y \
+    acpi arduino audacious baobab chromium-browser cmake cmake-qt-gui cu elinks \
+    exfat-fuse exfat-utils filezilla gawk gdebi git gitg gitk gnome-do \
+    google-chrome-stable gparted gpicview guake htop iftop ipython \
+    ipython-qtconsole ipython3 ipython3-qtconsole kdiff3 kismet krename \
+    krusader libncurses5-dev libssl-dev linssid linux-headers mc meld mercurial \
+    midori minicom nmap nmon openssh-server p7zip-full pv python-pip \
+    python3-pip qbs qt5-default qtcreator rar rpm rtorrent sqlite3 subversion \
+    synaptic tasksel texlive tilda tmux tortoisehg unrar unzip vim vlc \
+    wireshark xclip xfonts-terminus xubuntu-restricted-extras yakuake \
+    youtube-dl zeal
+
 
 printf "${GREEN}Removing crap...${NC}\n"
 sudo aptitude purge -y ristretto gnome-mines gnome-sudoku xfburn simple-scan \
