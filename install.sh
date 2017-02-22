@@ -58,7 +58,7 @@ alias mc='mc -S dark'
 
 printf "${GREEN}Patching root's .bashrc...${NC}\n"
 sudo su -c "echo -e \"
-export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
+export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]\\#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
 alias mc='mc -S dark'
 \" >> /root/.bashrc"
 
