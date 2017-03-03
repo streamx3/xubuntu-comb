@@ -33,8 +33,8 @@ sudo aptitude install -y \
     midori minicom nmap nmon openssh-server p7zip-full pv python-pip \
     python3-pip qbs qt5-default qtcreator rar rpm rtorrent sqlite3 subversion \
     synaptic tasksel texlive tilda tmux tortoisehg unrar unzip vim vlc \
-    wireshark xclip xfonts-terminus xubuntu-restricted-extras yakuake \
-    youtube-dl zeal
+    wireshark xclip xfce4-goodies xfonts-terminus xubuntu-restricted-extras \
+    yakuake youtube-dl zeal
 
 
 printf "${GREEN}Removing crap...${NC}\n"
