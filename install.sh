@@ -18,7 +18,7 @@ printf "${GREEN}Installing everyting...${NC}\n"
 sudo aptitude install -y \
     acpi audacious chromium-browser exfat-fuse exfat-utils filezilla gdebi \
     gnome-do gpicview mc meld mercurial midori openssh-server p7zip-full rar \
-    synaptic  unrar unzip vim vlc xfce4-goodies xfonts-terminus \ 
+    synaptic unrar unzip vim vlc xfce4-goodies xfonts-terminus \
     xubuntu-restricted-extras youtube-dl \
 \
 \ # DEVELOPMENT PACKAGES BEGIN; Clean \w d20d
@@ -44,8 +44,7 @@ sudo adduser `whoami` dialout
 #DEVELOPMENT PACKAGES END
 
 printf "${GREEN}Removing crap...${NC}\n"
-sudo aptitude purge -y ristretto gnome-mines gnome-sudoku xfburn simple-scan \
-    parole
+sudo aptitude purge -y gnome-mines gnome-sudoku simple-scan parole
 
 printf "${GREEN}Patching users .bashrc...${NC}\n"
 echo -e "
@@ -55,7 +54,7 @@ alias mc='mc -S dark'
 
 printf "${GREEN}Patching root's .bashrc...${NC}\n"
 sudo su -c "echo -e \"
-export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]\\#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
+export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]\#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
 alias mc='mc -S dark'
 \" >> /root/.bashrc"
 
