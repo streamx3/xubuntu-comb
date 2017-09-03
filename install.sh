@@ -46,6 +46,9 @@ sudo adduser `whoami` dialout
 printf "${GREEN}Removing crap...${NC}\n"
 sudo aptitude purge -y gnome-mines gnome-sudoku simple-scan parole
 
+printf "${GREEN}Fixing hddtemp...${NC}\n"
+sudo chmod u+s /usr/sbin/hddtemp
+
 printf "${GREEN}Patching users .bashrc...${NC}\n"
 echo -e "
 export PS1=\"\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;2m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\"
