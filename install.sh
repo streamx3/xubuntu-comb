@@ -17,7 +17,7 @@ sudo apt-get install -y aptitude
 printf "${GREEN}Installing everyting...${NC}\n"
 sudo aptitude install -y \
     acpi audacious chromium-browser exfat-fuse exfat-utils filezilla gdebi \
-    gnome-do gpicview mc meld mercurial midori openssh-server p7zip-full rar \
+    gnome-do gpicview mc meld mercurial openssh-server p7zip-full rar \
     synaptic unrar unzip vim vlc xfce4-goodies xfonts-terminus \
     xubuntu-restricted-extras youtube-dl \
 \
@@ -26,8 +26,8 @@ sudo aptitude install -y \
     arduino baobab cmake cmake-qt-gui cu elinks gawk git gitg gitk gparted \
     guake htop iftop ipython ipython-qtconsole ipython3 ipython3-qtconsole \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
-    linux-headers minicom nmap nmon pv python-pip python3-pip qbs qt5-default \
-    qtcreator rpm rtorrent sqlite3 subversion tasksel texlive tilda tmux \
+    linux-headers minicom nmap nmon pv python-pip python3-pip qt5-default \
+    rpm rtorrent sqlite3 subversion tasksel texlive tilda tmux \
     tortoisehg wireshark xclip yakuake zeal
 
 printf "${GREEN}Configuring VIM...${NC}\n"
