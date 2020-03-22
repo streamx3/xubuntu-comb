@@ -16,19 +16,18 @@ sudo apt-get install -y aptitude
 
 printf "${GREEN}Installing everyting...${NC}\n"
 sudo aptitude install -y \
-    acpi audacious chromium-browser exfat-fuse exfat-utils filezilla gdebi \
-    gnome-do gpicview mc meld mercurial openssh-server p7zip-full rar \
-    synaptic unrar unzip vim vlc xfce4-goodies xfonts-terminus \
-    xubuntu-restricted-extras youtube-dl \
-\
-\ # DEVELOPMENT PACKAGES BEGIN; Clean \w d20d
-\
-    arduino baobab cmake cmake-qt-gui cu elinks gawk git gitg gitk gparted \
-    guake htop iftop ipython ipython-qtconsole ipython3 ipython3-qtconsole \
+    acpi exfat-fuse exfat-utils filezilla gdebi \
+    gpicview mc meld openssh-server p7zip-full rar \
+    unrar unzip vim vlc xfce4-goodies xfonts-terminus \
+    xubuntu-restricted-addons \
+    baobab cmake cu elinks gawk git gitg gitk gparted \
+    htop iftop ipython3 \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
     linux-headers minicom nmap nmon pv python-pip python3-pip qt5-default \
-    rpm rtorrent sqlite3 subversion tasksel texlive tilda tmux \
-    tortoisehg wireshark xclip yakuake zeal
+    rpm rtorrent sqlite3 sqlitebrowser tasksel texlive tilda tmux \
+    wireshark xclip yakuake zeal
+
+#DEVELOPMENT ACTIONS BEGIN
 
 printf "${GREEN}Configuring VIM...${NC}\n"
 sudo su -c "echo -e \"
@@ -41,10 +40,23 @@ set laststatus=2
 printf "${GREEN}Adding current user to dialout group...${NC}\n"
 sudo adduser `whoami` dialout
 
-#DEVELOPMENT PACKAGES END
+printf "${GREEN}Installing GitKraken...${NC}\n"
+sudo snap install gitkraken
+printf "${GREEN}Installing PyCharm Pro...${NC}\n"
+sudo snap install --classic pycharm-professional
+printf "${GREEN}Installing Visual Studio Code...${NC}\n"
+sudo snap install --classic vscode
+printf "${GREEN}Installing Go...${NC}\n"
+sudo snap install --classic --channel=latest/stable go
+printf "${GREEN}Installing Skype...${NC}\n"
+sudo snap install --classic skype
+printf "${GREEN}Installing Slack...${NC}\n"
+sudo snap install --classic slack
+
+#DEVELOPMENT ACTIONS END
 
 printf "${GREEN}Removing crap...${NC}\n"
-sudo aptitude purge -y gnome-mines gnome-sudoku simple-scan parole
+sudo aptitude purge -y gnome-mines gnome-sudoku simple-scan parole sgt-launcher sgt-puzzles
 
 printf "${GREEN}Fixing hddtemp...${NC}\n"
 sudo chmod u+s /usr/sbin/hddtemp
@@ -57,7 +69,7 @@ alias mc='mc -S dark'
 
 printf "${GREEN}Patching root's .bashrc...${NC}\n"
 sudo su -c "echo -e \"
-export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]\#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
+export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
 alias mc='mc -S dark'
 \" >> /root/.bashrc"
 
