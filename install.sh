@@ -4,6 +4,13 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Colour
 
+actions=("ppa" "snap" "mc" "vim")
+
+if [[ $EUID -eq 0 ]]; then
+    echo "${RED}This script must NOT be run as root${NC}"
+    exit 1
+fi
+
 sudo echo "" > /dev/null
 printf "${GREEN}Cursors: Painting Black!${NC}\n"
 sudo cp -rf /usr/share/icons/DMZ-Black/cursors/* /usr/share/icons/DMZ-White/cursors
@@ -27,33 +34,8 @@ sudo aptitude install -y \
     rpm rtorrent sqlite3 sqlitebrowser tasksel texlive tilda tmux \
     wireshark xclip yakuake zeal
 
-#DEVELOPMENT ACTIONS BEGIN
-
-printf "${GREEN}Configuring VIM...${NC}\n"
-sudo su -c "echo -e \"
-set number
-set tabstop=4
-set statusline+=%F
-set laststatus=2
-\" >> /etc/vim/vimrc"
-
 printf "${GREEN}Adding current user to dialout group...${NC}\n"
 sudo adduser `whoami` dialout
-
-printf "${GREEN}Installing GitKraken...${NC}\n"
-sudo snap install gitkraken
-printf "${GREEN}Installing PyCharm Pro...${NC}\n"
-sudo snap install --classic pycharm-professional
-printf "${GREEN}Installing Visual Studio Code...${NC}\n"
-sudo snap install --classic vscode
-printf "${GREEN}Installing Go...${NC}\n"
-sudo snap install --classic --channel=latest/stable go
-printf "${GREEN}Installing Skype...${NC}\n"
-sudo snap install --classic skype
-printf "${GREEN}Installing Slack...${NC}\n"
-sudo snap install --classic slack
-
-#DEVELOPMENT ACTIONS END
 
 printf "${GREEN}Removing crap...${NC}\n"
 sudo aptitude purge -y gnome-mines gnome-sudoku simple-scan parole sgt-launcher sgt-puzzles
@@ -76,19 +58,25 @@ alias mc='mc -S dark'
 printf "${GREEN}Performing full upgrade...${NC}\n"
 sudo aptitude full-upgrade -y
 
+
+printf "${GREEN}Executing discreete actions...${NC}\n"
+
+for a in "${actions[@]}"
+do
+    cd actions/$a
+    bash apply.sh
+    cd ../..
+    echo ""
+done
+
 printf "${GREEN}Cleaning cache...${NC}\n"
 sudo aptitude autoclean
 sudo aptitude clean
 
-printf "${RED}Rebooting in 5...${NC}\n"
-sleep 1
-printf "${RED}Rebooting in 4...${NC}\n"
-sleep 1
-printf "${RED}Rebooting in 3...${NC}\n"
-sleep 1
-printf "${RED}Rebooting in 2...${NC}\n"
-sleep 1
-printf "${RED}Rebooting in 1...${NC}\n"
-sleep 1
+for a in `seq 10 -1 1`
+do
+    printf "${RED}Rebooting in $a ...${NC}\n"
+    sleep 1
+done
 
 sudo reboot
