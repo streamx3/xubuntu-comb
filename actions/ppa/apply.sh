@@ -17,5 +17,5 @@ sudo add-apt-repository -y ppa:agornostal/ulauncher
 # sudo add-apt-repository ppa:embrosyn/xapps ## 20.04 focal is not yet supported
 
 
-sudo apt-get update
-sudo apt-get install sublime-text ulauncher # xed
+sudo aptitude update
+sudo aptitude install -y sublime-text ulauncher # xed
