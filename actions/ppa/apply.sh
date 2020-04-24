@@ -13,8 +13,9 @@ sudo apt-get install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 printf "${GREEN}Adding Ulauncher${NC}\n"
-sudo add-apt-repository ppa:agornostal/ulauncher
+sudo add-apt-repository -y ppa:agornostal/ulauncher
+# sudo add-apt-repository ppa:embrosyn/xapps ## 20.04 focal is not yet supported
 
 
 sudo apt-get update
-sudo apt-get install sublime-text ulauncher
+sudo apt-get install sublime-text ulauncher # xed

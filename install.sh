@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Colour
 
-actions=("ppa" "snap" "mc" "vim")
+actions=("ppa" "snap" "cfg_mc" "vim", "sc_fonts", "cfg_ulauncher", "cfg_xconf", "cfg_xfce4-terminal")
 
 if [[ $EUID -eq 0 ]]; then
     echo "${RED}This script must NOT be run as root${NC}"
@@ -23,14 +23,14 @@ sudo apt-get install -y aptitude
 
 printf "${GREEN}Installing everyting...${NC}\n"
 sudo aptitude install -y \
-    acpi exfat-fuse exfat-utils filezilla gdebi \
+    acpi exfat-fuse exfat-utils filezilla gdebi gnome-disk-utility \
     gpicview mc meld openssh-server p7zip-full rar \
     unrar unzip vim vlc xfce4-goodies xfonts-terminus \
     xubuntu-restricted-addons \
     baobab cmake cu elinks gawk git gitg gitk gparted \
     htop iftop ipython3 \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
-    linux-headers minicom nmap nmon pv python-pip python3-pip qt5-default \
+    linux-headers minicom nmap nmon pv python3-pip qt5-default \
     rpm rtorrent sqlite3 sqlitebrowser tasksel texlive tilda tmux \
     wireshark xclip yakuake zeal
 
