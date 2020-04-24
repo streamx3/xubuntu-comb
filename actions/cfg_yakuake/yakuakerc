@@ -1,0 +1,8 @@
+[Animation]
+Frames=1
+
+[Dialogs]
+FirstRun=true
+
+[Window]
+Width=100

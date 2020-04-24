@@ -12,7 +12,7 @@ if [ $value -eq 1 ]
 then
   printf "[ ${GREEN}OK${NC} ] Detected 20.04\n"
   cp -rf panel ~/.config/xfce4/
-  cp -rf xconf ~/.config/xfce4/
+  cp -rf xfconf ~/.config/xfce4/
 else
   printf "[${RED}FAIL${NC}] Config is only tested on 20.04. Leaving.\n"
 fi

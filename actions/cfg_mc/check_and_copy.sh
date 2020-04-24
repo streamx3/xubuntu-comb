@@ -13,7 +13,7 @@ fi
 
 if [[ "$CONF_SUM1" == "$CONF_SUM2" ]]
 then
-	echo "Skipping, user mc config is identical already"
+	echo "Skipping: mc config is identical already"
 else
 	echo "Writing user config"
 	cp -rfv ./data/mc ~/.config/

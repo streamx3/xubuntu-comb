@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Colour
 
-actions=("ppa" "snap" "cfg_mc" "vim", "sc_fonts", "cfg_ulauncher", "cfg_xconf", "cfg_xfce4-terminal")
+
 
 if [[ $EUID -eq 0 ]]; then
     echo "${RED}This script must NOT be run as root${NC}"
@@ -31,7 +31,7 @@ sudo aptitude install -y \
     htop iftop ipython3 \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
     linux-headers minicom nmap nmon pv python3-pip qt5-default \
-    rpm rtorrent sqlite3 sqlitebrowser tasksel texlive tilda tmux \
+    rpm rtorrent sqlite3 sqlitebrowser stacer tasksel texlive tilda tmux \
     wireshark xclip yakuake zeal
 
 printf "${GREEN}Adding current user to dialout group...${NC}\n"
@@ -58,16 +58,8 @@ alias mc='mc -S dark'
 printf "${GREEN}Performing full upgrade...${NC}\n"
 sudo aptitude full-upgrade -y
 
-
 printf "${GREEN}Executing discreete actions...${NC}\n"
-
-for a in "${actions[@]}"
-do
-    cd actions/$a
-    bash apply.sh
-    cd ../..
-    echo ""
-done
+python3 actions.py
 
 printf "${GREEN}Cleaning cache...${NC}\n"
 sudo aptitude autoclean
