@@ -46,13 +46,11 @@ sudo chmod u+s /usr/sbin/hddtemp
 printf "${GREEN}Patching users .bashrc...${NC}\n"
 echo -e "
 export PS1=\"\[\033[38;5;2m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;2m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\"
-alias mc='mc -S dark'
 " >> ~/.bashrc
 
 printf "${GREEN}Patching root's .bashrc...${NC}\n"
 sudo su -c "echo -e \"
 export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
-alias mc='mc -S dark'
 \" >> /root/.bashrc"
 
 printf "${GREEN}Performing full upgrade...${NC}\n"
