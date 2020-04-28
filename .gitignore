@@ -1,0 +1,7 @@
+*.db
+*.idea
+*.deb
+*.ttf
+actions_test/*
+ulauncher.desktop
+

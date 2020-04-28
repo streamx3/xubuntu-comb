@@ -31,7 +31,7 @@ sudo aptitude install -y \
     htop iftop ipython3 \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
     linux-headers minicom nmap nmon pv python3-pip qt5-default \
-    rpm rtorrent sqlite3 sqlitebrowser stacer tasksel texlive tilda tmux \
+    rpm rtorrent sqlite3 sqlitebrowser stacer synaptic tasksel texlive tilda tmux \
     wireshark xclip yakuake zeal
 
 printf "${GREEN}Adding current user to dialout group...${NC}\n"

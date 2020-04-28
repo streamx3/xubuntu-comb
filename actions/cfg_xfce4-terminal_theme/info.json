@@ -1,0 +1,6 @@
+{
+  "dependencies": ["cfg_xfce4-terminal"],
+  "min_version" : "20.04",
+  "max_version" : "20.04"
+}
+
