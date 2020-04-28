@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Name=Xfce Terminal Dark
+Comment=Terminal Emulator Dark
+GenericName=Terminal Emulator Dark
+Exec=env GTK_THEME=AT-Dark xfce4-terminal
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=GTK;System;TerminalEmulator;
+StartupNotify=true
+Actions=preferences;
+
+[Desktop Action preferences]
+Name=Terminal Preferences
+Exec=GTK_THEME=AT-dark xfce4-terminal

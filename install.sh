@@ -30,7 +30,7 @@ sudo aptitude install -y \
     baobab cmake cu elinks gawk git gitg gitk gparted \
     htop iftop ipython3 \
     kdiff3 kismet krename krusader libncurses5-dev libssl-dev linssid \
-    linux-headers minicom nmap nmon pv python3-pip qt5-default \
+    linux-headers minicom nmap nmon pv python3-pip python-is-python3 qt5-default \
     rpm rtorrent sqlite3 sqlitebrowser stacer synaptic tasksel texlive tilda tmux \
     wireshark xclip yakuake zeal
 

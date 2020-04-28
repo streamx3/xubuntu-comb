@@ -1,0 +1,9 @@
+[X-GNOME-Metatheme]
+Name=AT-Dark
+Type=X-GNOME-Metatheme
+Comment=Terminal dark for Adwaita
+Encoding=UTF-8
+GtkTheme=AT-Dark
+IconTheme=Adwaita
+CursorTheme=Adwaita
+CursorSize=24

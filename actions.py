@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import os
 import sys
@@ -8,6 +8,8 @@ from typing import List, Dict, Any
 from datetime import datetime
 import sqlite3
 import json
+
+ACTIONS_DEBUG = False
 
 SUPPORTED_UBUNTU_RELEASES_MAJOR_NUM = [16, 18, 20, 21, 22, 23, 24]
 
@@ -65,7 +67,7 @@ def signal_handler(sig, frame):
 
 
 def exe(command: str):
-    command = 'cd ' + dir_actions + command + ' && bash ' + file_apply  + ' &&  cd ../.. '
+    command = 'cd ' + dir_actions + command + ' && bash ' + file_apply + ' &&  cd ../.. '
     process = subprocess.run(command, shell=True)
 
 
@@ -77,7 +79,8 @@ def check_executed(action_name: str) -> Dict[str, Any]:
     cur.execute(q)
     resp = cur.fetchall()
     if len(resp) > 0 and len(resp[0]):
-        # print(resp[0][1] + ' is already executed this time, on ' + resp[0][2])
+        if ACTIONS_DEBUG:
+            print(resp[0][1] + ' is already executed this time, on ' + resp[0][2])
         rv = {'id': resp[0][0], key_name: resp[0][1], key_date: resp[0][2]}
     conn.close()
     return rv
@@ -88,34 +91,56 @@ def process_single_action(action: Dict[str, str], all_actions: Dict[str, str]):
 
     if exe_info is not None and len(exe_info) > 0:
         # print(action[key_name] + ' is already executed this time, on ' + exe_info[key_date])
-        pass
-    else:
-        if key_dependencies in action:
-            for dep in action[key_dependencies]:
-                if dep != '':
-                    dep_exe_info = check_executed(dep)
-                    if dep_exe_info == {}:
-                        # print('Executing dependency of ' + action[key_name] + ' : ' + dep )
-                        process_single_action(all_actions[dep], all_actions)
-        # print('Executing ' + action[key_executable])
-        q = '''INSERT INTO ''' + db_processed_table + '''(''' + key_name + ''',''' + key_date + ''') values ("''' + \
-            action[key_name] + '''","''' + datetime.now().strftime(date_format) + '''");'''
-        # print(q)
-        exe(action[key_name])
-        conn = sqlite3.connect(file_database)
-        cur = conn.cursor()
-        cur.execute(q)
-        conn.commit()
-        conn.close()
-        # print('Finished exec ' + action[key_name])
+        if action['force']:
+            print('Removing previous exectuion timestamp:')
+            conn = sqlite3.connect(file_database)
+            cur = conn.cursor()
+            q = 'DELETE FROM ' + db_processed_table + ' WHERE ' + key_name + ' = "' + action[key_name] + '";'
+            print(q)
+            cur.execute(q)
+            conn.commit()
+            conn.close()
+        else:
+            return
+
+    if key_dependencies in action:
+        for dep in action[key_dependencies]:
+            if dep != '':
+                dep_exe_info = check_executed(dep)
+                if dep_exe_info == {}:
+                    if ACTIONS_DEBUG:
+                        print('Executing dependency of ' + action[key_name] + ' : ' + dep )
+                    process_single_action(all_actions[dep], all_actions)
+    if ACTIONS_DEBUG:
+        print('Executing ' + action[key_executable])
+    q = '''INSERT INTO ''' + db_processed_table + '''(''' + key_name + ''',''' + key_date + ''') values ("''' + \
+        action[key_name] + '''","''' + datetime.now().strftime(date_format) + '''");'''
+    if ACTIONS_DEBUG:
+        print(q)
+    exe(action[key_name])
+    conn = sqlite3.connect(file_database)
+    cur = conn.cursor()
+    cur.execute(q)
+    conn.commit()
+    conn.close()
+    if ACTIONS_DEBUG:
+        print('Finished exec ' + action[key_name])
 
 
-def process_actions(given_actions: List[str]):
+def process_actions(given_actions: List[str], force: bool):
     db_loaded = load_db()
     lsb_release = get_lsb_release()
     actions = load_actions()
     if len(given_actions) == 0:
         given_actions = actions
+    if force:
+        if len(given_actions) != 1:
+            print('ERROR: CANNOT FORCE MORE THAN 1 ACTION!. Leaving...')
+            sys.exit(-1)
+        print('FORCING EXECUTION OF ACTION [' + given_actions[0] + ']')
+        actions[given_actions[0]]['force'] = True
+        process_single_action(actions[given_actions[0]], actions)
+        return
     for a in given_actions:
         if a in actions and a not in db_loaded:
             if a == 'dummy':
@@ -172,7 +197,7 @@ def load_db() -> Dict[str, Dict[str, Any]]:
 
 
 def load_actions() -> Dict[str, Dict[str, Any]]:
-    actions = {}
+    _actions = {}
     if not os.path.isdir(dir_actions):
         print('Dir "' + dir_actions + '" is missing. Leaving...')
         sys.exit(-1)
@@ -187,17 +212,18 @@ def load_actions() -> Dict[str, Dict[str, Any]]:
         file_nfo_joined = os.path.join(dir_joined, file_info)
         file_apply_joined = os.path.join(dir_joined, file_apply)
         if os.path.exists(file_nfo_joined) and os.path.isfile(file_nfo_joined):
-            # print(file_nfo)
+            if ACTIONS_DEBUG:
+                print(file_nfo_joined)
             with open(file_nfo_joined, 'r') as f:
                 nfo = json.load(f)
                 nfo[key_name] = d
                 if os.path.isfile(file_apply_joined):
                     nfo[key_executable] = file_apply_joined
-                actions[d] = nfo
+                _actions[d] = nfo
         elif os.path.exists(file_apply_joined) and os.path.isfile(file_apply_joined):
             nfo = {key_name: d, key_executable: file_apply_joined}
-            actions[d] = nfo
-    return actions
+            _actions[d] = nfo
+    return _actions
 
 
 if __name__ == '__main__':
@@ -206,7 +232,11 @@ if __name__ == '__main__':
         if sys.argv[1] == 'list':
             actions = load_actions()
             print(' '.join(actions))
+        elif len(sys.argv) == 3 and sys.argv[2] == '-f':
+            ACTIONS_DEBUG = True
+            print('ENFORCING DEBUG MESSAGES...')
+            process_actions([sys.argv[1]], True)
         else:
-            process_actions(sys.argv[1:])
+            process_actions(sys.argv[1:], False)
     else:
-        process_actions([])
+        process_actions([], False)
