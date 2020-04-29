@@ -1,4 +1,3 @@
 {
-  "dependencies": ["ppa"]
+  "dependencies": ["ppa", "make_autostart_dir"]
 }
-
