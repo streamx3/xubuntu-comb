@@ -9,6 +9,7 @@ printf "${GREEN}Installing Source Code Pro from Adobe's github repo:${NC}\n"
 git clone https://github.com/adobe-fonts/source-code-pro.git
 cd source-code-pro
 mv -v OTF source-code-pro
-sudo cp -rfv source-code-pro /usr/share/fonts/opentype/
+sudo cp -rf source-code-pro /usr/share/fonts/opentype/
 cd ..
-rm -rfv source-code-pro
+rm -rf source-code-pro
+
