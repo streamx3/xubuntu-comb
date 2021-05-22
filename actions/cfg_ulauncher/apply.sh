@@ -12,5 +12,13 @@ cp -rf ulauncher ~/.config/
 cp -f /usr/share/applications/ulauncher.desktop .
 echo "X-GNOME-Autostart-enabled=true" >> ulauncher.desktop
 
+if [ -d "/home/$(whoami)/.config/autostart" ]
+then
+	echo "User autostart directory exists."
+else
+	echo "User autostart directory missing. Creating..."
+	mkdir ~/.config/autostart
+fi
+
 echo "Creating autostart shortcut for ulauncher"
-cp -fv ulauncher.desktop $DIRECTORY
+cp -fv ulauncher.desktop ~/.config/autostart/
