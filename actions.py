@@ -91,7 +91,7 @@ def process_single_action(action: Dict[str, str], all_actions: Dict[str, str]):
 
     if exe_info is not None and len(exe_info) > 0:
         # print(action[key_name] + ' is already executed this time, on ' + exe_info[key_date])
-        if action['force']:
+        if 'force' in action and action['force']:
             print('Removing previous exectuion timestamp:')
             conn = sqlite3.connect(file_database)
             cur = conn.cursor()

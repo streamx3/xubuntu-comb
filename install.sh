@@ -21,6 +21,9 @@ sudo apt-get update
 printf "${GREEN}Getting aptitude...${NC}\n"
 sudo apt-get install -y aptitude
 
+printf "${GREEN}Performing full upgrade...${NC}\n"
+sudo aptitude full-upgrade -y
+
 printf "${GREEN}Installing everyting...${NC}\n"
 sudo aptitude install -y \
     acpi exfat-fuse exfat-utils filezilla gdebi gnome-disk-utility \
@@ -52,9 +55,6 @@ printf "${GREEN}Patching root's .bashrc...${NC}\n"
 sudo su -c "echo -e \"
 export PS1=\\\"\[\033[38;5;1m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \w \[$(tput sgr0)\]\[\033[38;5;1m\]#\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\\\"
 \" >> /root/.bashrc"
-
-printf "${GREEN}Performing full upgrade...${NC}\n"
-sudo aptitude full-upgrade -y
 
 printf "${GREEN}Executing discreete actions...${NC}\n"
 python3 actions.py
